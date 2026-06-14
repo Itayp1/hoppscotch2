@@ -188,3 +188,9 @@ devenv.local.nix
 .cursor/
 .aider*
 .windsurfrules
+# Ignore local package folders
+/packages/hoppscotch-agent/
+/packages/hoppscotch-cli/
+/packages/hoppscotch-desktop/
+/packages/hoppscotch-js-sandbox/
+/packages/hoppscotch-kernel/
