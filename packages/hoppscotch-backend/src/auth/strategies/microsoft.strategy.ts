@@ -9,6 +9,7 @@ import { ConfigService } from '@nestjs/config';
 import { validateEmail } from 'src/utils';
 import { AUTH_EMAIL_NOT_PROVIDED_BY_OAUTH } from 'src/errors';
 import { StatelessStateStore } from '../stateless-state-store';
+import { HttpsProxyAgent } from 'https-proxy-agent';
 
 @Injectable()
 export class MicrosoftStrategy extends PassportStrategy(Strategy) {
@@ -31,6 +32,17 @@ export class MicrosoftStrategy extends PassportStrategy(Strategy) {
         configService.get<string>('INFRA.ALLOW_SECURE_COOKIES') === 'true',
       ),
     });
+
+    const proxyUrl =
+      process.env.MICROSOFT_PROXY_URL ||
+      process.env.HTTPS_PROXY ||
+      process.env.https_proxy;
+
+    if (proxyUrl) {
+      const agent = new HttpsProxyAgent(proxyUrl);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (this as any)._oauth2.setAgent(agent);
+    }
   }
 
   async validate(accessToken: string, refreshToken: string, profile, done) {

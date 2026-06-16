@@ -62,6 +62,7 @@
     "graphql-redis-subscriptions": "2.7.0",
     "graphql-subscriptions": "3.0.0",
     "handlebars": "4.7.9",
+    "https-proxy-agent": "7.0.6",
     "io-ts": "2.2.22",
     "morgan": "1.10.1",
     "nodemailer": "8.0.7",
